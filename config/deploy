@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -eu
+
+TEMP="$(mktemp -d)"
+
+sudo apt-get install --yes ansible
+
+echo "${ANSIBLE_VAULT_PASSWORD}" > ${TEMP}/password
+
+cp config/keys/${HOSTNAME} ${TEMP}/id_rsa
+ansible-vault decrypt --vault-password-file=${TEMP}/password ${TEMP}/id_rsa
+chmod 600 "${TEMP}/id_rsa"
+
+cat > ${TEMP}/hosts <<EOF
+${HOSTNAME} ansible_ssh_user=root ansible_ssh_private_key_file=${TEMP}/id_rsa
+EOF
+
+exec env ANSIBLE_HOST_KEY_CHECKING=0 ansible-playbook \
+	config/playbook.yml \
+	--verbose \
+	--inventory=${TEMP}/hosts \
+	--vault-password-file=${TEMP}/password \
+	"${@}"

@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - wget -O- http://travis.debian.net/script.sh | sh -
+
+deploy:
+  on:
+    branch: master
+  script:
+    - cp debian/buildd/*.deb config/roles/trydiffoscope/files/trydiffoscope.deb
+    - config/deploy
+  provider: script
+  skip_cleanup: true

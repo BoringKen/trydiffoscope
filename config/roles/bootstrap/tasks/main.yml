@@ -1,0 +1,4 @@
+---
+- name: packages
+  raw:
+    sudo apt-get install --yes python python-simplejson python-psycopg2

@@ -1,0 +1,70 @@
+html {
+  height: 100%;
+}
+
+footer {
+  padding-top: 30px;
+}
+
+.f_compare_view .wrapper {
+  padding-top: 24px;
+  padding-bottom: 80px;
+  margin-bottom: 36px;
+
+  color: #eee;
+  background-color: #110022;
+}
+
+@media (min-width: 768px) {
+  .f_compare_view .wrapper {
+    padding-top: 80px;
+  }
+}
+
+.f_compare_view .wrapper .logo img {
+  max-height: 130px;
+}
+
+@media (min-width: 768px) {
+  .f_compare_view .wrapper .logo img {
+    max-height: none;
+  }
+}
+
+.f_compare_view .wrapper .lead {
+  margin-top: 24px;
+  margin-bottom: 48px;
+}
+
+.f_compare_view .wrapper .lead a {
+  font-weight: bold;
+}
+
+.f_compare_view .wrapper .upload {
+  margin-top: 24px;
+}
+
+@media (min-width: 992px) {
+  .f_compare_view .wrapper .upload {
+    margin-top: 36px;
+  }
+}
+
+.f_center {
+  height: 100%;
+}
+
+.f_center .container {
+    height: 100%;
+    width: 100%;
+    display: table;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.f_center .row {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}

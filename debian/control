@@ -1,0 +1,26 @@
+Source: trydiffoscope
+Section: python
+Priority: extra
+Maintainer: Chris lamb <lamby@debian.org>
+Build-Depends:
+ debhelper (>= 9),
+ dh-systemd (>= 1.5),
+ dh-virtualenv (>= 0.10),
+ libffi-dev,
+ libpq-dev,
+ libpython-dev,
+ python
+Standards-Version: 3.9.5
+
+Package: trydiffoscope
+Architecture: any
+Pre-Depends:
+ python2.7,
+ ${misc:Pre-Depends}
+Depends:
+ docker.io,
+ ${misc:Depends},
+ ${python:Depends},
+ ${shlibs:Depends}
+Description: trydiffoscope
+ trydiffoscope

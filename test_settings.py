@@ -1,0 +1,1 @@
+from trydiffoscope.settings import *

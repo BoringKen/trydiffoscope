@@ -1,0 +1,67 @@
+import os
+import shutil
+import getpass
+import tempfile
+import subprocess
+
+from django.conf import settings
+
+from . import app_settings
+
+def call_in_container(args, cwd):
+    tempdir = tempfile.mkdtemp(prefix='trydiffoscope-')
+
+    args = (
+        'docker',
+        'run',
+        '--rm=true',
+        '--net=none',
+        '--user', getpass.getuser(),
+        '--read-only=true',
+        '--memory', app_settings.DOCKER_MEMORY_LIMIT,
+        '--cidfile', os.path.join(tempdir, 'cidfile'),
+        '--workdir', cwd,
+        '--volume', '%s:%s' % (cwd, cwd),
+        app_settings.DOCKER_IMAGE,
+    ) + args
+
+    p = subprocess.Popen(
+        args,
+        cwd=cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+
+    return p, tempdir
+
+def kill_container(tempdir):
+    try:
+        with open(os.path.join(tempdir, 'cidfile')) as f:
+            container_id = f.read()
+    except IOError:
+        pass
+    else:
+        subprocess.call((
+            'docker',
+            'rm',
+            '--force',
+            container_id,
+        ), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+    shutil.rmtree(tempdir, ignore_errors=True)
+
+def build_container(force=False):
+    exists = bool(subprocess.check_output(
+        ('docker', 'images', '-q', app_settings.DOCKER_IMAGE),
+    ))
+
+    if exists and not force:
+        return
+
+    subprocess.check_call((
+        'docker',
+        'build',
+        '--no-cache',
+        '--tag', app_settings.DOCKER_IMAGE,
+        os.path.join(settings.STATIC_ROOT, 'docker'),
+    ))

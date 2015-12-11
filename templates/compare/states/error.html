@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>
+    Whoops!
+    <small>An error occurred when comparing your files</small>
+  </h1>
+</div>
+
+<pre>{{ comparison.output }}</pre>
+
+{% endblock%}

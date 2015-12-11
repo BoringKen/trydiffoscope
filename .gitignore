@@ -1,0 +1,9 @@
+*.deb
+*.pyc
+*.sqlite*
+/trydiffoscope/settings/custom.py
+/static/
+/storage/
+/.coverage
+/coverage.xml
+/pep8.txt

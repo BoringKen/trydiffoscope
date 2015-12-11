@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>
+    Timeout
+    <small>Sorry, it took too long to process your files.</small>
+  </h1>
+</div>
+
+<pre>{{ comparison.output }}</pre>
+
+{% endblock%}

@@ -1,0 +1,92 @@
+---
+- name: Stop services to avoid race conditions
+  action: service
+    name={{ item }}
+    state=stopped
+  with_items:
+    - nginx
+    - trydiffoscope-celery
+    - trydiffoscope-gunicorn
+  ignore_errors: yes # Permit initial installation
+
+- name: Create storage directory
+  file:
+    state=directory
+    path={{ storage_dir }}
+    mode=0755
+    owner=www-data
+    group=www-data
+
+- name: Copy package
+  copy:
+    src=trydiffoscope.deb
+    dest=/tmp/trydiffoscope.deb
+
+- name: Install package
+  shell:
+    dpkg -i /tmp/trydiffoscope.deb
+  ignore_errors: yes # For new dependencies
+
+- name: Ensure dependencies
+  shell:
+    apt-get -f --yes install
+
+- name: Set role
+  template:
+    src=role.py
+    dest={{ site_packages }}/trydiffoscope/settings/role.py
+
+- name: Set custom/secret settings
+  template:
+    src=custom.py
+    dest={{ site_packages }}/trydiffoscope/settings/custom.py
+  no_log: true
+
+- name: Setup PostgreSQL user
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user:
+    name=trydiffoscope
+    password=trydiffoscope
+
+- name: Setup PostgreSQL database
+  sudo: yes
+  sudo_user: postgres
+  postgresql_db:
+    name=trydiffoscope
+    owner=trydiffoscope
+    encoding=UTF-8
+
+- name: collectstatic
+  command:
+    "{{ base_dir }}/bin/manage.py collectstatic --verbosity=2 --noinput --clear"
+
+- name: Run migrations
+  sudo: yes
+  sudo_user: www-data
+  shell:
+    "{{ base_dir }}/bin/manage.py migrate --verbosity=2 --noinput --fake-initial 2>&1"
+  register: out
+  changed_when: "'No migrations to apply.' not in out.stdout"
+- debug: var=out.stdout_lines
+
+- name: group
+  user:
+    name=www-data
+    groups=docker
+    append=yes
+
+- name: build_container
+  sudo: yes
+  sudo_user: www-data
+  command:
+    "{{ base_dir }}/bin/manage.py build_container --verbosity=2"
+
+- name: Start services again
+  action: service
+    name={{ item }}
+    state=started
+  with_items:
+    - trydiffoscope-gunicorn
+    - trydiffoscope-celery
+    - nginx

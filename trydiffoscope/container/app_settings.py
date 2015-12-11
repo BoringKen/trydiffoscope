@@ -1,0 +1,2 @@
+DOCKER_IMAGE = 'trydiffoscope'
+DOCKER_MEMORY_LIMIT = '500m'

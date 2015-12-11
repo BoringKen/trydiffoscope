@@ -1,0 +1,129 @@
+{% extends "base/base.html" %}
+
+{% block body_classes %}{{ block.super }} f_compare_view{% endblock %}
+
+{% block container %}
+
+<a class="hidden-xs" href="https://github.com/lamby/trydiffoscope"><img style="position: absolute; top: 0; left: 0; border: 0;" src="{% static "images/github.png" %}" alt="Fork me on GitHub"></a>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 logo">
+        <a href="{% url "compare:view" %}">
+          <img src="{% static "images/diffoscope.png" %}" class="img-responsive center-block">
+        </a>
+      </div>
+
+      <div class="col-xs-12 col-sm-8">
+        <h1>
+          Try diffoscope now&hellip;
+        </h1>
+
+        <p class="lead">
+          <a href="https://diffoscope.org/">diffoscope</a> is a tool to get to
+          the bottom of what makes files or directories different. It
+          recursively unpacks archives of many kinds and transforms various
+          binary formats into more human readable forms to compare them.
+        </p>
+
+        {% if form.non_field_errors %}
+        <div class="has-error">
+          {% for x in form.non_field_errors %}
+          <p class="help-block">{{ x }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <form
+          method="POST"
+          class="form-horizontal"
+          action=""
+          {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+        >
+          {% csrf_token %}
+
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div class="row">
+                <div class="col-md-5 col-xs-12">
+                  <div class="form-group {% if form.errors.file_a %}has-error{% endif %}">
+                    <label for="{{ form.file_a.id_for_label }}">
+                      File #1
+                    </label>
+                    <input
+                      id="{{ form.file_a.id_for_label }}"
+                      type="file"
+                      class="form-control input-lg"
+                      name="{{ form.file_a.html_name }}"
+                      value="{{ form.file_a.value|default:"" }}"
+                      maxlength="{{ form.fields.file_a.max_length }}"
+                      {% if form.fields.file_a.required %}required{% endif %}
+                    >
+                    {% for x in form.errors.file_a %}
+                      <p class="help-block">{{ x }}</p>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="col-md-5 col-md-offset-1 col-xs-12 col-xs-offset-0">
+                  <div class="form-group {% if form.errors.file_b %}has-error{% endif %}">
+                    <label for="{{ form.file_b.id_for_label }}">
+                      File #2
+                    </label>
+                    <input
+                      id="{{ form.file_b.id_for_label }}"
+                      type="file"
+                      class="form-control input-lg"
+                      name="{{ form.file_b.html_name }}"
+                      value="{{ form.file_b.value|default:"" }}"
+                      maxlength="{{ form.fields.file_b.max_length }}"
+                      {% if form.fields.file_b.required %}required{% endif %}
+                    >
+                    {% for x in form.errors.file_b %}
+                      <p class="help-block">{{ x }}</p>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group upload">
+                <div class="col-sm-9 col-sm-offset-1">
+                  <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    Upload &amp; compare files
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <p>
+        <em>Diffoscope</em> is being developed under the umbrella of the
+        <a href="https://reproducible-builds.org/">reproducible-builds.org</a>
+        effort.
+        For contributors, licensing and instructions on how to run
+        <em>diffoscope</em> on your own machine, please see
+        <a href="https://diffoscope.org/">diffoscope.org</a>.
+      </p>
+    </div>
+    <div class="col-sm-6">
+      <br class="visible-xs">
+      <p class="text-center text-muted">
+        Hosting provided by
+      </p>
+      <p>
+        <a href="https://www.bytemark.co.uk/">
+          <img src="{% static "images/bytemark.png" %}" class="img-responsive center-block">
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock%}

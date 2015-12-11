@@ -1,0 +1,28 @@
+---
+- name: bootstrap
+  gather_facts: false
+  hosts: all
+  roles:
+    - bootstrap
+
+- name: setup
+  hosts: all
+  roles:
+    - apt
+    - hostname
+    - locale
+    - timezone
+    - mailx
+    - molly-guard
+    - firewall
+
+    - exim
+    - memcached
+    - postgresql
+    - redis
+    - nginx
+
+- name: deploy
+  hosts: all
+  roles:
+    - trydiffoscope

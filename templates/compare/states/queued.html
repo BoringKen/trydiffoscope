@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+
+{% block body_classes %}{{ block.super }} f_center{% endblock %}
+
+{% block title %}Please wait&hellip;{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<meta http-equiv="refresh" content="2">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+      <p class="text-center lead">
+        {% if comparison.get_state_enum.name == "queued" %}
+          Please wait&hellip;
+        {% else %}
+          Processing, please wait&hellip;
+        {% endif %}
+      </p>
+
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped active" style="width: 100%;"></div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock%}
