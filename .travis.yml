@@ -9,8 +9,6 @@ script:
 deploy:
   on:
     branch: master
-  script:
-    - cp debian/buildd/*.deb config/roles/trydiffoscope/files/trydiffoscope.deb
-    - config/deploy
+  script: config/deploy
   provider: script
   skip_cleanup: true

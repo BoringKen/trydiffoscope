@@ -4,6 +4,8 @@ set -eu
 
 TEMP="$(mktemp -d)"
 
+cp debian/buildd/*.deb config/roles/trydiffoscope/files/trydiffoscope.deb
+
 sudo apt-get install --yes ansible
 
 echo "${ANSIBLE_VAULT_PASSWORD}" > ${TEMP}/password
