@@ -1,3 +1,7 @@
+import getpass
+
+from django.conf import settings
+
 DOCKER_IMAGE = 'trydiffoscope'
 DOCKER_MEMORY_LIMIT = '500m'
 DOCKER_DROP_CAPABILITIES = (
@@ -18,3 +22,6 @@ DOCKER_DROP_CAPABILITIES = (
     'sys_time',
     'sys_tty_config',
 )
+
+# Cannot guarantee that "my"  user will exist, so just use root locally
+DOCKER_USER = 'root' if settings.DEBUG else getpass.getuser()

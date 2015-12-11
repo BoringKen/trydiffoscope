@@ -1,6 +1,5 @@
 import os
 import shutil
-import getpass
 import tempfile
 import subprocess
 
@@ -16,7 +15,7 @@ def call_in_container(args, cwd):
         'run',
         '--rm=true',
         '--net=none',
-        '--user', getpass.getuser(),
+        '--user', app_settings.DOCKER_USER,
         '--read-only=true',
         '--memory', app_settings.DOCKER_MEMORY_LIMIT,
         '--cidfile', os.path.join(tempdir, 'cidfile'),
