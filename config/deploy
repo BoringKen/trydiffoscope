@@ -5,7 +5,7 @@ set -eux
 TEMP="$(mktemp -d)"
 
 SOURCE="$(dpkg-parsechangelog --show-field Source)"
-cp -v debian/buildd/*.deb config/roles/trydiffoscope/files/${SOURCE}.deb
+install -v -D -m644 debian/buildd/*.deb config/roles/trydiffoscope/files/${SOURCE}.deb
 
 sudo apt-get install --yes ansible
 
