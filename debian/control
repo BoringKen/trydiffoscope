@@ -3,6 +3,7 @@ Section: python
 Priority: extra
 Maintainer: Chris lamb <lamby@debian.org>
 Build-Depends:
+ ca-certificates,
  debhelper (>= 9),
  dh-systemd (>= 1.5),
  dh-virtualenv (>= 0.10),
