@@ -11,7 +11,7 @@ from . import app_settings
 def call_in_container(args, cwd):
     tempdir = tempfile.mkdtemp(prefix='trydiffoscope-')
 
-    args = (
+    args = [
         'docker',
         'run',
         '--rm=true',
@@ -22,8 +22,11 @@ def call_in_container(args, cwd):
         '--cidfile', os.path.join(tempdir, 'cidfile'),
         '--workdir', cwd,
         '--volume', '%s:%s' % (cwd, cwd),
+    ] + [
+        '--cap-drop=%s' % x for x in app_settings.DOCKER_DROP_CAPABILITIES
+    ] + [
         app_settings.DOCKER_IMAGE,
-    ) + args
+    ] + list(args)
 
     p = subprocess.Popen(
         args,
