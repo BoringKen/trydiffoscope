@@ -95,11 +95,11 @@ BROKER_URL = 'redis://localhost:6379/0'
 
 CELERYBEAT_SCHEDULE = {
     'retention-policy': {
-        'task': 'diffoscope.compare.retention_policy.tasks.purge',
+        'task': 'trydiffoscope.compare.retention_policy.tasks.purge',
         'schedule': crontab(minute=0),
     },
     'update-container': {
-        'task': 'diffoscope.container.tasks.update_containe',
+        'task': 'trydiffoscope.container.tasks.update_container',
         'schedule': crontab(hour=0, minute=0),
     },
 }
