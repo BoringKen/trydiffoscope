@@ -37,7 +37,12 @@ def execute_diffoscope(slug):
 
         if p.poll() == 0:
             comparison.state = StateEnum.identical
-        elif not os.path.exists(html_output):
+        elif os.path.exists(html_output):
+            with open(html_output, 'a') as f:
+                print >>f, '<div class="footer">'
+                print >>f, '  <a href="%s.txt">View text version</a>' % instance.slug
+                print >>f, '</div>'
+        else:
             # If we didn't generate output.html, there was an error
             comparison.state = StateEnum.error
     except celery.exceptions.SoftTimeLimitExceeded, exc:
