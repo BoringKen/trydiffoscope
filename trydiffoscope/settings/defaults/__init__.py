@@ -102,14 +102,8 @@ CELERYBEAT_SCHEDULE = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-SITE_DOMAIN = 'trydiffoscope.chris-lamb.co.uk'
-SITE_URL = 'http://%s' % SITE_DOMAIN
-DEFAULT_FROM_EMAIL_NAME = "trydiffoscope"
-DEFAULT_FROM_EMAIL_MAILTO = 'hello@%s' % SITE_DOMAIN
-DEFAULT_FROM_EMAIL = email.utils.formataddr((
-    DEFAULT_FROM_EMAIL_NAME,
-    DEFAULT_FROM_EMAIL_MAILTO,
-))
+SITE_URL = 'overriden-in-production'
+DEFAULT_FROM_EMAIL = 'overriden-in-production'
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
