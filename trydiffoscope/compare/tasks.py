@@ -39,10 +39,13 @@ def execute_diffoscope(slug):
         if returncode == 0:
             comparison.state = StateEnum.identical
         elif os.path.exists(html_output):
-            with open(html_output, 'a') as f:
-                print >>f, '<div class="footer">'
-                print >>f, '  <a href="%s.txt">View text version</a>' % instance.slug
-                print >>f, '</div>'
+            try:
+                with open(html_output, 'a') as f:
+                    print >>f, '<div class="footer">'
+                    print >>f, '  <a href="%s.txt">View text version</a>' % instance.slug
+                    print >>f, '</div>'
+            except IOError:
+                pass
         else:
             # If we didn't generate output.html, there was an error
             comparison.state = StateEnum.error
