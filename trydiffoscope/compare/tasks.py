@@ -49,7 +49,7 @@ def execute_diffoscope(slug):
         else:
             # If we didn't generate output.html, there was an error
             comparison.state = StateEnum.error
-    except celery.exceptions.SoftTimeLimitExceeded, exc:
+    except celery.exceptions.SoftTimeLimitExceeded:
         comparison.state = StateEnum.timeout
     except Exception:
         comparison.state = StateEnum.error
