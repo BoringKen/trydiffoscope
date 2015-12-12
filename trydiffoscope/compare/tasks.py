@@ -42,7 +42,7 @@ def execute_diffoscope(slug):
             try:
                 with open(html_output, 'a') as f:
                     print >>f, '<div class="footer">'
-                    print >>f, '  <a href="%s.txt">View text version</a>' % instance.slug
+                    print >>f, '  <a href="%s.txt">View text version</a>' % comparison.slug
                     print >>f, '</div>'
             except IOError:
                 pass
