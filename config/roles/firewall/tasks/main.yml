@@ -12,3 +12,4 @@
   with_items:
     - OpenSSH
     - WWW
+    - "WWW Secure"

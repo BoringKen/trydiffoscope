@@ -17,6 +17,9 @@ DATABASES = {
     },
 }
 
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+
 TWILIO_ENABLED = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

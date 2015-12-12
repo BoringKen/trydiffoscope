@@ -11,6 +11,24 @@
   notify:
     restart nginx
 
+- name: ssl_certificate
+  copy:
+    content="{{ ssl_certificate }}"
+    dest=/etc/nginx/ssl_certificate
+    mode=0640
+  notify:
+    restart nginx
+  no_log: true
+
+- name: ssl_certificate_key
+  copy:
+    content="{{ ssl_certificate_key }}"
+    dest=/etc/nginx/ssl_certificate_key
+    mode=0640
+  notify:
+    restart nginx
+  no_log: true
+
 - name: running
   service:
     name=nginx

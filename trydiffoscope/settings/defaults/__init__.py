@@ -109,6 +109,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 SITE_URL = 'overriden-in-production'
 DEFAULT_FROM_EMAIL = 'overriden-in-production'
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_AGE = 86400 * 365 * 10
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
@@ -147,8 +151,5 @@ CACHES = {
 # Always log to the console, even in production (ie. gunicorn)
 LOGGING = copy.deepcopy(DEFAULT_LOGGING)
 LOGGING['handlers']['console']['filters'] = []
-
-SESSION_COOKIE_AGE = 86400 * 365 * 10
-SESSION_COOKIE_HTTPONLY = True
 
 TRYDIFFOSCOPE_RESULTS_RETENTION_DAYS = 30
