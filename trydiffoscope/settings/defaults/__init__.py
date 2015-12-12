@@ -94,6 +94,10 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 BROKER_URL = 'redis://localhost:6379/0'
 
 CELERYBEAT_SCHEDULE = {
+    'retention-policy': {
+        'task': 'diffoscope.compare.retention_policy.tasks.purge',
+        'schedule': crontab(minute=0),
+    },
     'update-container': {
         'task': 'diffoscope.container.tasks.update_containe',
         'schedule': crontab(hour=0, minute=0),
@@ -146,3 +150,5 @@ LOGGING['handlers']['console']['filters'] = []
 
 SESSION_COOKIE_AGE = 86400 * 365 * 10
 SESSION_COOKIE_HTTPONLY = True
+
+TRYDIFFOSCOPE_RESULTS_RETENTION_DAYS = 30
