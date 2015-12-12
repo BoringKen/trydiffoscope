@@ -23,5 +23,5 @@ DOCKER_DROP_CAPABILITIES = (
     'sys_tty_config',
 )
 
-# Cannot guarantee that "my"  user will exist, so just use root locally
+# Cannot guarantee that "my" user will exist, so just use root locally
 DOCKER_USER = 'root' if settings.DEBUG else getpass.getuser()
