@@ -33,9 +33,10 @@ def execute_diffoscope(slug):
         comparison.state = StateEnum.different
         comparison.output = p.communicate()[0]
 
+        returncode = p.poll()
         html_output = os.path.join(cwd, 'output.html')
 
-        if p.poll() == 0:
+        if returncode == 0:
             comparison.state = StateEnum.identical
         elif os.path.exists(html_output):
             with open(html_output, 'a') as f:
