@@ -32,9 +32,12 @@ def execute_diffoscope(slug):
         comparison.state = StateEnum.different
         comparison.output = p.communicate()[0]
 
+        html_output = os.path.join(cwd, 'output.html')
+
         if p.poll() == 0:
             comparison.state = StateEnum.identical
-        elif not os.path.exists(os.path.join(cwd, 'output.html')):
+        elif not os.path.exists(html_output):
+            # If we didn't generate output.html, there was an error
             comparison.state = StateEnum.error
     except celery.exceptions.SoftTimeLimitExceeded, exc:
         comparison.state = StateEnum.timeout
