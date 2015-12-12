@@ -1,6 +1,7 @@
 import os
 import celery
 import datetime
+import traceback
 
 from django.core.files.storage import default_storage
 
@@ -41,9 +42,9 @@ def execute_diffoscope(slug):
             comparison.state = StateEnum.error
     except celery.exceptions.SoftTimeLimitExceeded, exc:
         comparison.state = StateEnum.timeout
-    except Exception, exc:
+    except Exception:
         comparison.state = StateEnum.error
-        comparison.output += repr(exc)
+        comparison.output += traceback.format_exc()
     finally:
         comparison.updated = datetime.datetime.utcnow()
         comparison.save()
