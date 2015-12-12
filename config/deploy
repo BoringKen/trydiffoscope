@@ -11,7 +11,7 @@ pip install ansible
 
 echo "${ANSIBLE_VAULT_PASSWORD}" > ${TEMP}/password
 
-cp config/keys/${HOSTNAME} ${TEMP}/id_rsa
+cp config/ssh_keys/${HOSTNAME} ${TEMP}/id_rsa
 ansible-vault decrypt --vault-password-file=${TEMP}/password ${TEMP}/id_rsa
 chmod 600 "${TEMP}/id_rsa"
 
