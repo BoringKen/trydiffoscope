@@ -7,9 +7,9 @@
     policy=reject
 
 - action: ufw
-    app={{ item }}
+    app="{{ item }}"
     rule=allow
   with_items:
     - OpenSSH
     - WWW
-    - "WWW Secure"
+    - WWW Secure
