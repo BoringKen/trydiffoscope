@@ -50,6 +50,7 @@ def execute_diffoscope(slug):
         comparison.state = StateEnum.timeout
     except Exception:
         comparison.state = StateEnum.error
+        comparison.output += '\n'
         comparison.output += traceback.format_exc()
     finally:
         comparison.updated = datetime.datetime.utcnow()
