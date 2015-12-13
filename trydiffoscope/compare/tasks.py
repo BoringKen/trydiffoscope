@@ -10,7 +10,7 @@ from trydiffoscope.container.utils import call_in_container, kill_container
 from .enums import StateEnum
 from .models import Comparison
 
-@celery.task(soft_time_limit=15)
+@celery.task(soft_time_limit=60)
 def execute_diffoscope(slug):
     comparison = Comparison.objects.get(slug=slug)
 
