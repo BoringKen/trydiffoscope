@@ -1,4 +1,9 @@
 ---
+- name: Copy package
+  copy:
+    src=trydiffoscope.deb
+    dest=/tmp/trydiffoscope.deb
+
 - name: Stop services to avoid race conditions
   action: service
     name={{ item }}
@@ -16,11 +21,6 @@
     mode=0755
     owner=www-data
     group=www-data
-
-- name: Copy package
-  copy:
-    src=trydiffoscope.deb
-    dest=/tmp/trydiffoscope.deb
 
 - name: Install package
   shell:
