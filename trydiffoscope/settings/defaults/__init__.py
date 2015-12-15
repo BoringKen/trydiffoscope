@@ -153,3 +153,4 @@ LOGGING = copy.deepcopy(DEFAULT_LOGGING)
 LOGGING['handlers']['console']['filters'] = []
 
 TRYDIFFOSCOPE_RESULTS_RETENTION_DAYS = 30
+TRYDIFFOSCOPE_MAX_UPLOAD_SIZE_MEGABYTES = 20 # overriden-in-production
