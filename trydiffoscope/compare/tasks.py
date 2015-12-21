@@ -4,6 +4,7 @@ import datetime
 import traceback
 
 from django.core.files.storage import default_storage
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from trydiffoscope.container.utils import call_in_container, kill_container
 
@@ -12,7 +13,11 @@ from .models import Comparison
 
 FOOTER = """
 <div class="footer">
-  <a href="%(text_url)s">View text version</a>
+  <p style="float: left;"><a href="%(text_url)s">View text version</a></p>
+  <p style="float: right; text-align: right; line-height: 24px;">
+    Hosting provided by<br>
+    <a href="https://www.bytemark.co.uk"><img src="%(bytemark_logo)s"></a>
+  </p>
 </div>
 """
 
@@ -49,6 +54,7 @@ def execute_diffoscope(slug):
                 with open(html_output, 'a') as f:
                     print >>f, FOOTER % {
                         'text_url': '%s.txt' % comparison.slug,
+                        'bytemark_logo': static('images/bytemark.png'),
                     }
             except IOError:
                 pass
