@@ -1,4 +1,5 @@
 from django import forms
+from django.db import transaction
 
 from .tasks import execute_diffoscope
 from .models import Comparison
@@ -14,6 +15,7 @@ class CompareForm(forms.ModelForm):
     def save(self):
         instance = super(CompareForm, self).save()
 
+        transaction,commit()
         execute_diffoscope.delay(instance.slug)
 
         return instance
