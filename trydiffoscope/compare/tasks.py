@@ -16,7 +16,7 @@ FOOTER = """
   <p style="float: left;"><a href="%(text_url)s">View text version</a></p>
   <p style="float: right; text-align: right; line-height: 24px;">
     Hosting provided by<br>
-    <a href="https://www.bytemark.co.uk"><img src="%(bytemark_logo)s"></a>
+    <a href="http://anonym.to/?https://www.bytemark.co.uk"><img src="%(bytemark_logo)s"></a>
   </p>
 </div>
 """
