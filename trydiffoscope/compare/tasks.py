@@ -12,7 +12,7 @@ from .models import Comparison
 
 FOOTER = """
 <div class="footer">
-  <a href="%s.txt">View text version</a>
+  <a href="%(text_url)s">View text version</a>
 </div>
 """
 
@@ -47,7 +47,9 @@ def execute_diffoscope(slug):
         elif os.path.exists(html_output):
             try:
                 with open(html_output, 'a') as f:
-                    print >>f, FOOTER % comparison.slug
+                    print >>f, FOOTER % {
+                        'text_url': '%s.txt' % comparison.slug,
+                    }
             except IOError:
                 pass
         else:
