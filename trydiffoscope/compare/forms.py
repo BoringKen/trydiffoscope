@@ -15,7 +15,7 @@ class CompareForm(forms.ModelForm):
     def save(self):
         instance = super(CompareForm, self).save()
 
-        transaction,commit()
+        transaction.commit()
         execute_diffoscope.delay(instance.slug)
 
         return instance
