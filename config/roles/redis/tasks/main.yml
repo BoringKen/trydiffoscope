@@ -2,6 +2,7 @@
 - name: pkg
   apt:
     pkg=redis-server
+    default_release={{ debian_release }}-backports
 
 - name: running
   service:
