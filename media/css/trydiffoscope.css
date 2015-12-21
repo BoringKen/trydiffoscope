@@ -50,6 +50,11 @@ footer {
   }
 }
 
+.f_compare_queued {
+  color: #eee;
+  background-color: #110022;
+}
+
 .f_center {
   height: 100%;
 }
