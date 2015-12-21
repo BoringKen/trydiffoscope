@@ -10,6 +10,12 @@ from trydiffoscope.container.utils import call_in_container, kill_container
 from .enums import StateEnum
 from .models import Comparison
 
+FOOTER = """
+<div class="footer">
+  <a href="%s.txt">View text version</a>
+</div>
+"""
+
 @celery.task(soft_time_limit=60)
 def execute_diffoscope(slug):
     comparison = Comparison.objects.get(slug=slug)
@@ -41,9 +47,7 @@ def execute_diffoscope(slug):
         elif os.path.exists(html_output):
             try:
                 with open(html_output, 'a') as f:
-                    print >>f, '<div class="footer">'
-                    print >>f, '  <a href="%s.txt">View text version</a>' % comparison.slug
-                    print >>f, '</div>'
+                    print >>f, FOOTER % comparison.slug
             except IOError:
                 pass
         else:
