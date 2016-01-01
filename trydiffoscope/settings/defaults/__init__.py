@@ -94,6 +94,10 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 BROKER_URL = 'redis://localhost:6379/0'
 
 CELERYBEAT_SCHEDULE = {
+    'cleanup': {
+        'task': 'trydiffoscope.container.tasks.cleanup',
+        'schedule': crontab(minute=30),
+    },
     'retention-policy': {
         'task': 'trydiffoscope.compare.retention_policy.tasks.purge',
         'schedule': crontab(minute=0),

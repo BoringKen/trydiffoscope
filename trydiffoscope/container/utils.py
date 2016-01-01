@@ -67,3 +67,13 @@ def build_container(force=False):
         '--tag', app_settings.DOCKER_IMAGE,
         os.path.join(settings.STATIC_ROOT, 'docker'),
     ))
+
+def clean_images():
+    subprocess.call((
+        'docker ps --all --quiet | xargs -r -L 1 docker rm',
+    ), shell=True)
+
+def clean_containers():
+    subprocess.call((
+        'docker images --filter dangling=true --quiet | xargs -r -L 1 docker rmi',
+    ), shell=True)
