@@ -5,7 +5,7 @@
 
  - name: /etc/aliases
    lineinfile:
-     'dest=/etc/aliases regexp="^root:.*" "line=root: {{ root_email }}"'
+     'dest=/etc/aliases regexp="^root:.*" line="root: {{ root_email }}"'
    notify:
      newaliases
 
