@@ -5,4 +5,4 @@ storage_dir: /srv/storage.{{ inventory_hostname }}
 site_packages: /usr/share/python/trydiffoscope/lib/python2.7/site-packages
 debian_mirror: http://httpredir.debian.org
 debian_release: jessie
-client_max_body_size_megabytes: 60
+client_max_body_size_megabytes: 120
