@@ -3,6 +3,8 @@ from django.conf.urls import include, url
 from django.views.static import serve
 
 urlpatterns = (
+    url(r'', include('trydiffoscope.api.urls',
+        namespace='api')),
     url(r'', include('trydiffoscope.compare.urls',
         namespace='compare')),
 )

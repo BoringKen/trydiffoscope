@@ -8,6 +8,7 @@ INSTALLED_APPS = (
     'djcelery',
     'template_tests',
 
+    'trydiffoscope.api',
     'trydiffoscope.container',
     'trydiffoscope.compare',
     'trydiffoscope.compare.retention_policy',
