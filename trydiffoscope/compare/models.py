@@ -3,6 +3,7 @@ import datetime
 import functools
 
 from django.db import models
+from django.shortcuts import resolve_url
 from django.utils.crypto import get_random_string
 
 from .enums import StateEnum
@@ -49,3 +50,6 @@ class Comparison(models.Model):
 
     def get_state_enum(self):
         return {x.value: x for x in StateEnum}[self.state]
+
+    def get_absolute_url(self):
+        return resolve_url('compare:poll', self.slug)
