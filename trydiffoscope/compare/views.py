@@ -15,7 +15,7 @@ def view(request):
         if form.is_valid():
             instance = form.save()
 
-            return redirect('compare:poll', instance.slug)
+            return redirect(instance)
     else:
         form = CompareForm()
 
