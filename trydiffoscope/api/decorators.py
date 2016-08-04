@@ -19,7 +19,7 @@ class api_method(object):
                 return response
 
             return HttpResponse(
-                json.dumps(data),
+                json.dumps(data, indent=2),
                 status=status,
                 content_type='application/json',
             )
