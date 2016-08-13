@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 
+from trydiffoscope.utils.json import JSONEncoder
+
 class api_method(object):
     def __call__(self, fn):
         @csrf_exempt
@@ -21,7 +23,7 @@ class api_method(object):
             body = json.dumps({
                 'result': data,
                 'status': status
-            }, indent=2)
+            }, indent=2, cls=JSONEncoder)
 
             return HttpResponse(
                 body,
