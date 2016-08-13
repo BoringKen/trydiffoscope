@@ -18,8 +18,13 @@ class api_method(object):
             except ValueError:
                 return response
 
+            body = json.dumps({
+                'result': data,
+                'status': status
+            }, indent=2)
+
             return HttpResponse(
-                json.dumps(data, indent=2),
+                body,
                 status=status,
                 content_type='application/json',
             )
