@@ -41,7 +41,7 @@ def execute_diffoscope(slug):
     ), cwd)
 
     try:
-        comparison.state = StateEnum.different
+        comparison.state = StateEnum.error
         comparison.output = p.communicate()[0]
 
         returncode = p.poll()
@@ -49,7 +49,9 @@ def execute_diffoscope(slug):
 
         if returncode == 0:
             comparison.state = StateEnum.identical
-        elif os.path.exists(html_output):
+        elif returncode == 1:
+            comparison.state = StateEnum.different
+
             try:
                 with open(html_output, 'a') as f:
                     print >>f, FOOTER % {
@@ -58,13 +60,9 @@ def execute_diffoscope(slug):
                     }
             except IOError:
                 pass
-        else:
-            # If we didn't generate output.html, there was an error
-            comparison.state = StateEnum.error
     except celery.exceptions.SoftTimeLimitExceeded:
         comparison.state = StateEnum.timeout
     except Exception:
-        comparison.state = StateEnum.error
         comparison.output += '\n'
         comparison.output += traceback.format_exc()
     finally:
