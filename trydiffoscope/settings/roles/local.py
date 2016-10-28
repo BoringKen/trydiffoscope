@@ -20,8 +20,6 @@ DATABASES = {
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-TWILIO_ENABLED = False
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CACHES = {
@@ -33,5 +31,3 @@ CACHES = {
 BROKER_URL = 'memory://'
 CELERY_ALWAYS_EAGER = True
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
-
-STRIPE_ENABLED = False
