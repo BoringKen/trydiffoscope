@@ -31,7 +31,7 @@ def call_in_container(args, cwd):
         args,
         cwd=cwd,
         stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        stderr=subprocess.PIPE,
     )
 
     return p, tempdir

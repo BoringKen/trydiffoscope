@@ -10,6 +10,7 @@ from trydiffoscope.container.utils import call_in_container, kill_container
 
 from .enums import StateEnum
 from .models import Comparison
+from .progress import set_progress
 
 FOOTER = """
 <div class="footer">
@@ -34,7 +35,7 @@ def execute_diffoscope(slug):
 
     p, tempdir = call_in_container((
         'diffoscope',
-        '--debug',
+        '--status-fd=2',
         '--html', 'output.html',
         '--text', 'output.txt',
         comparison.file_a.name.split(os.path.sep, 1)[1],
@@ -43,6 +44,14 @@ def execute_diffoscope(slug):
 
     try:
         comparison.state = StateEnum.error
+
+        for line in p.stderr:
+            try:
+                current, total = [int(x) for x in line.split('\t', 1)]
+                set_progress(comparison, current, total)
+            except Exception:
+                pass
+
         comparison.output = p.communicate()[0]
 
         returncode = p.poll()

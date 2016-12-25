@@ -7,6 +7,7 @@ from django.views.decorators.cache import never_cache
 from .forms import CompareForm
 from .enums import StateEnum
 from .models import Comparison
+from .progress import get_progress
 
 def view(request):
     if request.method == 'POST':
@@ -32,7 +33,14 @@ def poll(request, slug):
     if state == StateEnum.different:
         return redirect('compare:output', comparison.slug, 'html')
 
+    try:
+        current, total = get_progress(comparison)
+        progress = int(100 * current / total)
+    except Exception:
+        progress = 0
+
     return render(request, 'compare/states/%s.html' % state.name, {
+        'progress': progress,
         'comparison': comparison,
     })
 
