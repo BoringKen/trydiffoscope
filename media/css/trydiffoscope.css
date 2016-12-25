@@ -50,6 +50,11 @@ footer {
   }
 }
 
+.f_compare_view .wrapper pre.cli {
+  margin-top: -20px;
+  line-height: 200%;
+}
+
 .f_compare_queued {
   color: #eee;
   background-color: #110022;
