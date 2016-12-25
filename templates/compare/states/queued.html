@@ -14,7 +14,7 @@
     <div class="col-sm-4 col-sm-offset-4">
       <p class="text-center lead">
         {% if comparison.get_state_enum.name == "queued" %}
-          In queue, please wait&hellip;
+          In position #{{ queue_position }} in queue, please wait&hellip;
         {% else %}
           Comparing your files, please wait&hellip;
         {% endif %}

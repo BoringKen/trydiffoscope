@@ -39,9 +39,15 @@ def poll(request, slug):
     except Exception:
         progress = 0
 
+    queue_position = Comparison.objects.filter(
+        state=StateEnum.queued,
+        created__lt=comparison.created,
+    ).count() + 1
+
     return render(request, 'compare/states/%s.html' % state.name, {
         'progress': progress,
         'comparison': comparison,
+        'queue_position': queue_position,
     })
 
 def output(request, slug, extension):
