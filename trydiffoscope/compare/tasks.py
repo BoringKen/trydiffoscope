@@ -19,6 +19,7 @@ FOOTER = """
     <a href="https://www.bytemark.co.uk"><img src="%(bytemark_logo)s"></a>
   </p>
 </div>
+</body>
 """
 
 @celery.task(soft_time_limit=60)
@@ -53,11 +54,14 @@ def execute_diffoscope(slug):
             comparison.state = StateEnum.different
 
             try:
-                with open(html_output, 'a') as f:
-                    print >>f, FOOTER % {
+                with open(html_output, 'r') as f:
+                    contents = f.read()
+
+                with open(html_output, 'w') as f:
+                    print >>f, contents.replace('</body>', {
                         'text_url': '%s.txt' % comparison.slug,
                         'bytemark_logo': static('images/bytemark.png'),
-                    }
+                    })
             except IOError:
                 pass
     except celery.exceptions.SoftTimeLimitExceeded:
