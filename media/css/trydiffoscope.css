@@ -78,3 +78,8 @@ footer {
     vertical-align: middle;
     width: 100%;
 }
+
+.f_privacy,
+.f_terms {
+  padding-top: 40px;
+}

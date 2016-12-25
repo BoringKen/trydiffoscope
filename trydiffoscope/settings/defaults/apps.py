@@ -12,5 +12,6 @@ INSTALLED_APPS = (
     'trydiffoscope.container',
     'trydiffoscope.compare',
     'trydiffoscope.compare.retention_policy',
+    'trydiffoscope.static',
     'trydiffoscope.utils',
 )

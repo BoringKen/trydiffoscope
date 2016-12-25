@@ -7,6 +7,8 @@ urlpatterns = (
         namespace='api')),
     url(r'', include('trydiffoscope.compare.urls',
         namespace='compare')),
+    url(r'', include('trydiffoscope.static.urls',
+        namespace='static')),
 )
 
 if settings.DEBUG:
