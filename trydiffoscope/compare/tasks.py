@@ -23,7 +23,7 @@ FOOTER = """
 </body>
 """
 
-@celery.task(soft_time_limit=60)
+@celery.task(soft_time_limit=90)
 def execute_diffoscope(slug):
     comparison = Comparison.objects.get(slug=slug)
 
