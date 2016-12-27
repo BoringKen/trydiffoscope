@@ -4,6 +4,7 @@ import shutil
 import datetime
 import traceback
 
+from django.conf import settings
 from django.core.files.storage import default_storage
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
@@ -15,14 +16,17 @@ from .progress import set_progress
 
 FOOTER = """
 <div class="footer">
-  <p style="float: left;"><a href="%(text_url)s">View text version</a></p>
+  <p style="float: left;">
+    <a href="%(text_url)s">View text version</a>.
+    Results are kept for {} days.
+  </p>
   <p style="float: right; text-align: right; line-height: 24px;">
     Hosting provided by<br>
     <a href="https://www.bytemark.co.uk"><img src="%(bytemark_logo)s"></a>
   </p>
 </div>
 </body>
-"""
+""".format(settings.TRYDIFFOSCOPE_RESULTS_RETENTION_DAYS)
 
 @celery.task(soft_time_limit=90)
 def execute_diffoscope(slug):
