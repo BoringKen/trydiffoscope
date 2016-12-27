@@ -1,5 +1,6 @@
 import os
 import celery
+import shutil
 import datetime
 import traceback
 
@@ -82,5 +83,9 @@ def execute_diffoscope(slug):
         comparison.updated = datetime.datetime.utcnow()
         comparison.save()
         kill_container(tempdir)
+
+        # Always delete uploaded files.
+        for x in ('a', 'b'):
+            shutil.rmtree(os.path.join(cwd, x), ignore_errors=True)
 
     return repr(comparison)
