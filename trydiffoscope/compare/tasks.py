@@ -39,6 +39,7 @@ def execute_diffoscope(slug):
         '--status-fd=2',
         '--html', 'output.html',
         '--text', 'output.txt',
+        '--profile=-',
         comparison.file_a.name.split(os.path.sep, 1)[1],
         comparison.file_b.name.split(os.path.sep, 1)[1],
     ), cwd)
