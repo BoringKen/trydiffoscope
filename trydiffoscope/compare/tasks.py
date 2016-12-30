@@ -58,7 +58,7 @@ def execute_diffoscope(slug):
             except Exception:
                 comparison.output += line
 
-        comparison.output = p.communicate()[0]
+        comparison.output += p.communicate()[0]
 
         returncode = p.poll()
         html_output = os.path.join(cwd, 'output.html')
