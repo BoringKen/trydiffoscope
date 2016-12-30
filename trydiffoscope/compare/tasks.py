@@ -74,7 +74,7 @@ def execute_diffoscope(slug):
 
                 with open(html_output, 'w') as f:
                     print >>f, contents.replace('</body>', FOOTER % {
-                        'text_url': '%s.txt' % comparison.slug,
+                        'text_url': '%s.txt' % str(comparison.slug),
                         'bytemark_logo': static('images/bytemark.png'),
                     })
             except IOError:
