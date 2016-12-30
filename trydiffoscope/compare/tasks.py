@@ -82,6 +82,7 @@ def execute_diffoscope(slug):
     except celery.exceptions.SoftTimeLimitExceeded:
         comparison.state = StateEnum.timeout
     except Exception:
+        comparison.state = StateEnum.error
         comparison.output += '\n'
         comparison.output += traceback.format_exc()
     finally:
