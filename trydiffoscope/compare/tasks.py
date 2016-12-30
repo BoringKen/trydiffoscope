@@ -56,7 +56,7 @@ def execute_diffoscope(slug):
                 current, total = [int(x) for x in line.split('\t', 1)]
                 set_progress(comparison, current, total)
             except Exception:
-                pass
+                comparison.output += line
 
         comparison.output = p.communicate()[0]
 
