@@ -53,7 +53,7 @@ def execute_diffoscope(slug):
 
         for line in p.stderr:
             try:
-                current, total = [int(x) for x in line.split('\t', 1)]
+                current, total = [int(x) for x in line.split('\t')[:2]]
                 set_progress(comparison, current, total)
             except Exception:
                 comparison.output += line
