@@ -78,7 +78,9 @@ def execute_diffoscope(slug):
                         'bytemark_logo': static('images/bytemark.png'),
                     })
             except IOError:
-                pass
+                # Locally we fail due to local-user/root distinction.
+                if not settings.DEBUG:
+                    raise
     except celery.exceptions.SoftTimeLimitExceeded:
         comparison.state = StateEnum.timeout
     except Exception:
