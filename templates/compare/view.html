@@ -50,7 +50,7 @@
                   <div class="form-group {% if form.errors.file_a %}has-error{% endif %}">
                     <label for="{{ form.file_a.id_for_label }}">
                       File #1
-                      <span class="text-muted">(max: {{ settings.TRYDIFFOSCOPE_MAX_UPLOAD_SIZE_MEGABYTES }}MB)</span>
+                      <span class="text-muted">(max: {% widthratio settings.TRYDIFFOSCOPE_MAX_UPLOAD_SIZE_MEGABYTES 2 1 %}MB)</span>
                     </label>
                     <input
                       id="{{ form.file_a.id_for_label }}"
@@ -70,7 +70,7 @@
                   <div class="form-group {% if form.errors.file_b %}has-error{% endif %}">
                     <label for="{{ form.file_b.id_for_label }}">
                       File #2
-                      <span class="text-muted">(max: {{ settings.TRYDIFFOSCOPE_MAX_UPLOAD_SIZE_MEGABYTES }}MB)</span>
+                      <span class="text-muted">(max: {% widthratio settings.TRYDIFFOSCOPE_MAX_UPLOAD_SIZE_MEGABYTES 2 1 %}MB)</span>
                     </label>
                     <input
                       id="{{ form.file_b.id_for_label }}"
