@@ -34,11 +34,6 @@ def comparison(request, slug):
         'uri': resolve_absolute_uri(request, instance),
         'state': instance.get_state_enum().name,
 
-        'files': {x: {
-            'name': os.path.basename(getattr(instance, 'file_%s' % x).name),
-            'size': getattr(instance, 'file_%s' % x).size,
-        } for x in ('a', 'b')},
-
         'formats': {x: resolve_absolute_uri(
             request, 'compare:output', instance.slug, y,
         ) for x, y in (('text', 'txt'), ('html', 'html'))},
