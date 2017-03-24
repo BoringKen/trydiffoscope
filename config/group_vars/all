@@ -3,6 +3,6 @@ base_dir: /usr/share/python/trydiffoscope
 root_email: chris@chris-lamb.co.uk
 storage_dir: /srv/storage.{{ inventory_hostname }}
 site_packages: /usr/share/python/trydiffoscope/lib/python2.7/site-packages
-debian_mirror: http://httpredir.debian.org
+debian_mirror: http://deb.debian.org
 debian_release: jessie
 client_max_body_size_megabytes: 120
