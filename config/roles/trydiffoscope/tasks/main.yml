@@ -48,6 +48,7 @@
   postgresql_user:
     name=trydiffoscope
     password=trydiffoscope
+  ignore_errors: yes
 
 - name: Setup PostgreSQL database
   sudo: yes
@@ -56,6 +57,7 @@
     name=trydiffoscope
     owner=trydiffoscope
     encoding=UTF-8
+  ignore_errors: yes
 
 - name: collectstatic
   command:
